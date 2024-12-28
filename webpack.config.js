@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode: 'development',
@@ -11,6 +12,10 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+            },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
@@ -27,7 +32,17 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            filename: "index.html", 
             template: './src/template.html',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false,
+                useShortDoctype: false,
+            },
+        }),
+        new HtmlWebpackPlugin({
+            filename: "about.html",
+            template: "./src/about.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,

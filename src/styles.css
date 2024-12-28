@@ -65,7 +65,7 @@ header {
 
 .logo {
     color: var(--primary-blue);
-    font-weight: 500;
+    font-weight: bold;
     font-style: italic;
     font-size: 3rem;
     margin-left: 100px;
@@ -156,13 +156,14 @@ header {
     padding-left: 7rem;
 }
 .hero h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     width: 50%;
     font-weight: 600;
     color: var(--black-color);
     font-family: var(--font-primary);
     font-optical-sizing: auto;
     padding-left: 7rem;
+    margin-top: 1.3rem;
 }
 
 .cta-buttons {
@@ -197,6 +198,7 @@ header {
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-direction: alternate-reverse;
+    width: 50%;
 }
 
 @keyframes cta-first-button {
@@ -251,13 +253,152 @@ header {
     background-color: var(--primary-blue-dark);
 }
 
-.hero h1::before {
+.hero h1 .simplify::after {
     content: "";
     position: absolute;
-    bottom: -10px;
-    left: 50%;
+    left: 220px;
+    bottom: 46%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 200px;
     height: 10px;
     background-color: var(--primary-blue);
+    border-radius: 100px 100px 0 0;
+    z-index: -1;
+}
+
+.hero h1 .organized::after {
+    content: "";
+    position: absolute;
+    left: 28%;
+    top: 38.5%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 10px;
+    background-color: var(--primary-blue);
+    border-radius: 100px 100px 0 0;
+    z-index: -1;
+}
+
+.screenshots {
+    width: 500px;
+    height: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    left: 40rem;
+    top: -23rem;
+    z-index: 1;
+    transform: scale(.9);
+}
+
+.screenshots img:last-child {
+    position: relative;
+    top: -2rem;
+    right: 39rem;
+}
+
+.hero {
+    height: 400px;
+}
+
+.features-section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    background-color: var(--off-white);
+    height: 400px;
+}
+
+.features-section h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--gray-color);
+}
+
+.features {
+    display: grid;
+    grid-template-rows: 200px;
+    grid-template-columns: repeat(3, 100px);
+    margin-top: 2rem;
+    gap: 220px;
+    height: 250px;
+    width: 850px;
+    position: relative;
+    left: 13vw;
+    bottom: 10px;
+}
+
+.feature {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: var(--border-radius);
+    width: 280px;
+    padding: 10px;
+    height: 160px;
+}
+
+.features-section > h3 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.footer {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--bg-color-2);
+    padding: 10px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.footer-content .social-media {
+    transform: scale(.7);
+}
+
+.footer-content .social-media img {
+    position: relative;
+    top: 2px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--black-color);
+    opacity: 50%;
+    margin-right: 15px;
+}
+
+.footer-links a:hover{
+    opacity: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-info p:last-child {
+    color: var(--gray-color);
+}
+
+.footer-info p {
+    opacity: 85%;
+}
+.footer-info a {
+    text-decoration: none;
+    color: var(--gray-color);    
+}
+
+.footer-info a:hover {
+    color: var(--black-color);
 }
