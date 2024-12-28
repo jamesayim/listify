@@ -61,6 +61,12 @@ header {
     grid-auto-flow: column;
     color: var(--black-color);
     height: 100px;
+    width: 100dvw;
+    border-bottom: 2.5px solid var(--primary-blue);
+    position: fixed;
+    top: 0;
+    background-color: var(--bg-color-2);
+    z-index: 1000;
 }
 
 .logo {
@@ -116,7 +122,7 @@ header {
 }
 
 .nav-list button:first-child {
-    background-color: var(--light-gray);
+    background-color: var(--bg-color-2);
     color: var(--gray-color);
 }
 .nav-list button:first-child:hover {
@@ -257,7 +263,7 @@ header {
     content: "";
     position: absolute;
     left: 220px;
-    bottom: 46%;
+    bottom: 42%;
     transform: translateX(-50%);
     width: 200px;
     height: 10px;
@@ -270,7 +276,7 @@ header {
     content: "";
     position: absolute;
     left: 28%;
-    top: 38.5%;
+    top: 42.8%;
     transform: translateX(-50%);
     width: 260px;
     height: 10px;
@@ -299,6 +305,7 @@ header {
 }
 
 .hero {
+    margin-top: 200px;
     height: 400px;
 }
 
@@ -404,6 +411,7 @@ header {
 }
 
 .aboutus-main {
+    margin-top: 200px;
     height: 50dvh;
     text-align: center;
     background-color: var(--off-white);
