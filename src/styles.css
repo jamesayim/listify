@@ -33,7 +33,7 @@
 
     /* Others */
     --border-radius: 10px;
-    --transition: all 0.3s ease-in-out;
+    --transition: all 0.3s ease;
 }
 
 * {
@@ -415,7 +415,7 @@ header {
     height: 50dvh;
     text-align: center;
     background-color: var(--off-white);
-    padding: 30px;
+    padding: 10px;
 }
 
 .allabout {
@@ -425,3 +425,4 @@ header {
     flex-direction: column;
     margin: 0 auto;
 }
+

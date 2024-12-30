@@ -1,12 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+// const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: {
+        landing: "./src/index.js",
+        signup: "./src/signup.js",
+        login: "./src/login.js",
+    },
     output: {
-        filename: 'main.js',
+        filename: '[name].main.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
@@ -28,7 +32,7 @@ module.exports = {
     },
     devtool: "eval-source-map",
     devServer: {
-        watchFiles: ["./src/template.html", "./src/faq.html"],
+        watchFiles: ["./src/template.html", "./src/faq.html", "./src/about.html", "./src/tos.html", "./src/app.html", "./src/login.html", "./src/signup.html", "./src/privacy-policy"],
         static: "./dist",
         historyApiFallback: true,
     },

@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listify - TodoList</title>
+    <style>
+        header {
+            border-bottom: none !important;
+        }
+    </style>
 </head>
-<body>
+<body data-page="home">
     <header>
         <h1 class="logo">listify</h1>
         <nav class="nav-list">
@@ -15,8 +20,8 @@
                 <li><a href="about.html">About Us</a></li>
             </ul>
             <div class="entry">
-                <button type="button">Login</button>
-                <button type="button">Sign up</button>
+                <button id="login-btn" type="button">Login</button>
+                <button id="signup-btn" type="button">Sign up</button>
             </div>
         </nav>
     </header>
@@ -25,8 +30,8 @@
             <h1>Stay <span class="organized">Organized</span>, <span class="simplify">Simplify</span> Your Life.</h1>
             <h2>Your ultimate tool to manage tasks effortlessly and stay ahead of your goals.</h2>
             <div class="cta-buttons">
-                <button type="button">Try for FREE!</button>
-                <button type="button">Learn more</button>
+                <button class="try-for-free-btn" type="button">Try for FREE!</button>
+                <button id="learn-more-btn" type="button">Learn more</button>
             </div>
             <div class="screenshots">
                 <img src="assets/screenshot-interface.png" alt="screenshot 1">
