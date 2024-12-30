@@ -5,9 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        landing: "./src/index.js",
-        signup: "./src/signup.js",
-        login: "./src/login.js",
+        landing: "./src/client/index.js",
+        signup: "./src/client/signup.js",
+        login: "./src/client/login.js",
     },
     output: {
         filename: '[name].main.js',
@@ -19,6 +19,22 @@ module.exports = {
             {
                 test: /\.html$/i,
                 loader: 'html-loader',
+                options: {
+                    sources: {
+                        list: [
+                            {
+                                tag: "img",
+                                attribute: "src",
+                                type: "src",
+                            },
+                            {
+                                tag: "link",
+                                attribute: "href",
+                                type: "src",
+                            }
+                        ],
+                    },
+                },
             },
             {
                 test: /\.css$/,
@@ -27,19 +43,22 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
+                generator: {
+                    filename: "assets/[name][ext]",
+                },
             },
         ]
     },
     devtool: "eval-source-map",
     devServer: {
-        watchFiles: ["./src/template.html", "./src/faq.html", "./src/about.html", "./src/tos.html", "./src/app.html", "./src/login.html", "./src/signup.html", "./src/privacy-policy"],
+        watchFiles: ["./src/client/template.html", "./src/client/faq.html", "./src/client/about.html", "./src/client/tos.html", "./src/client/app.html", "./src/client/login.html", "./src/client/signup.html", "./src/client/privacy-policy"],
         static: "./dist",
         historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: "index.html", 
-            template: './src/template.html',
+            template: './src/client/template.html',
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -48,7 +67,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "about.html",
-            template: "./src/about.html",
+            template: "./src/client/about.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -57,7 +76,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "faq.html",
-            template: "./src/faq.html",
+            template: "./src/client/faq.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -66,7 +85,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "tos.html",
-            template: "./src/tos.html",
+            template: "./src/client/tos.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -75,7 +94,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "app.html",
-            template: "./src/app.html",
+            template: "./src/client/app.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -84,7 +103,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "login.html",
-            template: "./src/login.html",
+            template: "./src/client/login.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -93,7 +112,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "signup.html",
-            template: "./src/signup.html",
+            template: "./src/client/signup.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,
@@ -102,7 +121,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "privacy-policy.html",
-            template: "./src/privacy-policy.html",
+            template: "./src/client/privacy-policy.html",
             minify: {
                 removeComments: true,
                 collapseWhitespace: false,

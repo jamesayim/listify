@@ -7,11 +7,11 @@ if (getPage() === "home") {
     const signupBtn = document.getElementById("signup-btn");
     if (loginBtn || signupBtn) {
         function sendToLoginPage() {
-            window.location.href = "login.html";
+            window.location.href = "./login.html";
         }
 
         function sendToSignupPage() {
-            window.location.href = "signup.html";
+            window.location.href = "./signup.html";
         }
 
         loginBtn.addEventListener("click", sendToLoginPage);
@@ -19,5 +19,7 @@ if (getPage() === "home") {
     }
 } else if (getPage() === "login") {
     import ("./login.css");
+} else if (getPage() === "signup") {
+    import ("./signup.css");
 }
 
