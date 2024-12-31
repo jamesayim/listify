@@ -2,9 +2,9 @@ const mysql = require("mysql2");
 
 const db = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "",
-    database: "db",
+    user: "your_username",
+    password: "your_password",
+    database: "listify_db",
 });
 
 app.post("/auth/signup", (req, res) => {
