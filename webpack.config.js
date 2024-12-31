@@ -8,6 +8,9 @@ module.exports = {
         landing: "./src/client/index.js",
         signup: "./src/client/signup.js",
         login: "./src/client/login.js",
+        serverapp: "./src/server/server.js",
+        connection: "./src/db/connection.js",
+        route: "./src/server/routes/auth.js",
     },
     output: {
         filename: '[name].main.js',
