@@ -1,9 +1,35 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require('webpack');
+const { ProvidePlugin } = webpack;
 
 module.exports = {
     mode: 'development',
+    stats: {
+        errorDetails: true,
+    },
+    resolve: {
+        fallback: {
+            "child_process": false,
+            process: require.resolve('process/browser'),
+            zlib: require.resolve('browserify-zlib'),
+            stream: require.resolve('stream-browserify'),
+            timers: require.resolve('timers-browserify'),
+            crypto: require.resolve('crypto-browserify'),
+            buffer: require.resolve('buffer/'),
+            vm: require.resolve('vm-browserify'),
+            url: require.resolve('url/'),
+            querystring: require.resolve('querystring-es3'),
+            assert: require.resolve('assert/'),
+            path: require.resolve('path-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            http: require.resolve('stream-http'),
+            fs: false,
+            net: false,
+            tls: false,
+            util: require.resolve('util/'),
+        },
+    },
     entry: {
         landing: "./src/client/index.js",
         signup: "./src/client/signup.js",
@@ -17,6 +43,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
+    externals: {
+        "aws-sdk": "commonjs aws-sdk",
+    },      
     module: {
         rules: [
             {
@@ -40,6 +69,10 @@ module.exports = {
                 },
             },
             {
+                test: /\.json$/,
+                type: "json",
+            },
+            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
@@ -59,6 +92,9 @@ module.exports = {
         historyApiFallback: true,
     },
     plugins: [
+        new ProvidePlugin({
+            process: "process/browser"
+        }),
         new HtmlWebpackPlugin({
             filename: "index.html", 
             template: './src/client/template.html',

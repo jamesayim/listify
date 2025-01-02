@@ -1,29 +1,20 @@
 const mysql = require("mysql2");
+require("dotenv").config();
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "your_username",
-    password: "your_password",
-    database: "listify_db",
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
 });
 
-app.post("/auth/signup", (req, res) => {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-        return res.status(400).json({ error: "Username and password are required" });
-    }
-
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
-    const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-    db.query(sql, [username, hashedPassword], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Database error" });
-        }
-        res.status(201).json({ message: "User registered successfully!" });
-    });
+connection.connect((err) => {
+    if (err) {
+        alert("Error connecting to the database: ", err.stack);
+        return;
+    };
+    alert("Connected to database.");
 });
 
-module.exports = db;
+module.exports = connection;
