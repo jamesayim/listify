@@ -20,10 +20,6 @@ router.post('/signup', async (req, res) => {
     if (!validator.isEmail(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
-
-    if (error.code === 'ER_DUP_ENTRY') {
-      return res.status(400).json({ error: 'Username or email already exists' });
-    }    
   
     try {
       // Check if username or email exists
@@ -31,6 +27,9 @@ router.post('/signup', async (req, res) => {
         'SELECT * FROM users WHERE username = ? OR email = ?',
         [username, email]
       );
+
+      console.log(results);
+      
       if (results.length > 0) {
         return res.status(400).json({ error: 'Username or email already exists' });
       }
@@ -43,10 +42,14 @@ router.post('/signup', async (req, res) => {
         'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
         [username, email, hashedPassword]
       );
-  
-      res.status(201).json({ message: 'User registered successfully!' });
+      
+      return res.status(201).json({ message: 'User registered successfully!' });
     } catch (error) {
-      console.error(error);
+      console.error("Signup error:", error);
+
+      if (error.code === 'ER_DUP_ENTRY') {
+        return res.status(400).json({ error: 'Username or email already exists' });
+      }
       res.status(500).json({ error: 'Internal server error' });
     }
   });
@@ -69,10 +72,6 @@ router.post('/signup', async (req, res) => {
       const user = results[0];
   
       // Compare passwords
-
-      if (!validator.isStrongPassword(password)) {
-        return res.status(400).json({ error: 'Password is not strong enough' });
-      }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
