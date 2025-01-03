@@ -3,13 +3,20 @@
     margin: 22vh auto;
     width: 30%;
     padding: 30px;
-    height: 330px;
+    height: max-content;
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     justify-content: start;
     gap: 20px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group > p:first-child {
+    text-align: center;
+    font-size: .8rem;
+    margin: 15px 0;
+    color: var(--gray-color);
 }
 
 .form-group {
