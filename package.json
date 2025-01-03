@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "webpack --mode development",
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "postbuild": "prettier --write dist/*",

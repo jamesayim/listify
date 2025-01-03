@@ -13,92 +13,23 @@ const htmlPages = [
     "privacy-policy.html",
 ];
 
-const HtmlWebpackPlugins = htmlPages.map(page => {
-    const name = page.replace('.html', '');
-    return new HtmlWebpackPlugin({
-        filename: `${name}.html`,
-        template: `./src/client/${page}`,
-        minify: {
-            removeComments: true,
-            collapseWhitespace: false,
-            useShortDoctype: false,
-        },
-    });
-});
-
 module.exports = {
     mode: 'development',
-    stats: {
-        errorDetails: true,
-    },
-    // resolve: {
-    //     fallback: {
-    //         "child_process": false,
-    //         "process": require.resolve('process/browser'),
-    //         "zlib": require.resolve('browserify-zlib'),
-    //         "stream": require.resolve('stream-browserify'),
-    //         "timers": require.resolve('timers-browserify'),
-    //         "crypto": require.resolve('crypto-browserify'),
-    //         "buffer": require.resolve('buffer/'),
-    //         "vm": require.resolve('vm-browserify'),
-    //         "querystring": require.resolve('querystring-es3'),
-    //         "assert": require.resolve('assert/'),
-    //         "path": require.resolve('path-browserify'),
-    //         "os": require.resolve('os-browserify/browser'),
-    //         "http": require.resolve('stream-http'),
-    //         "events": require.resolve('events/'),
-    //         "https": require.resolve('https-browserify'),
-    //         "module": false,
-    //         "fs": false,
-    //         "dns": false,
-    //         "net": false,
-    //         "tls": false,
-    //         "util": require.resolve('util/'),
-    //         "constants": require.resolve('constants-browserify'),
-    //         "dgram": false,
-    //         "url": require.resolve('url/'),
-    //         "string_decoder": require.resolve('string_decoder/'),
-    //         "querystring": require.resolve('querystring-es3/'),
-    //     },
-    // },
     entry: {
         landing: "./src/client/index.js",
         signup: "./src/client/signup.js",
         login: "./src/client/login.js",
     },
     output: {
-        filename: '[name].main.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-    },
-    externals: {
-        "aws-sdk": "commonjs aws-sdk",
     },
     module: {
         rules: [
             {
                 test: /\.html$/i,
                 loader: 'html-loader',
-                options: {
-                    sources: {
-                        list: [
-                            {
-                                tag: "img",
-                                attribute: "src",
-                                type: "src",
-                            },
-                            {
-                                tag: "link",
-                                attribute: "href",
-                                type: "src",
-                            }
-                        ],
-                    },
-                },
-            },
-            {
-                test: /\.json$/,
-                type: "json",
             },
             {
                 test: /\.css$/,
@@ -115,14 +46,40 @@ module.exports = {
     },
     devtool: "eval-source-map",
     devServer: {
-        watchFiles: ["./src/client/template.html", "./src/client/faq.html", "./src/client/about.html", "./src/client/tos.html", "./src/client/app.html", "./src/client/login.html", "./src/client/signup.html", "./src/client/privacy-policy"],
-        static: "./dist",
+        watchFiles: [
+            "./src/client/template.html",
+            "./src/client/faq.html",
+            "./src/client/about.html",
+            "./src/client/tos.html",
+            "./src/client/app.html",
+            "./src/client/login.html",
+            "./src/client/signup.html",
+            "./src/client/privacy-policy.html"],
+        static: {
+            directory: path.join(__dirname, 'dist'),
+            serveIndex: true,
+            watch: true,
+            publicPath: "/",
+        },
+        port: 8080,
         historyApiFallback: true,
     },
     plugins: [
+        ...htmlPages.map(page => {
+            const name = page.replace('.html', '');
+            return new HtmlWebpackPlugin({
+              filename: `${name}.html`,
+              template: `./src/client/${page}`,
+              inject: 'body',
+              minify: {
+                removeComments: true,
+                collapseWhitespace: false,
+                useShortDoctype: false,
+              },
+            });
+          }),
         new webpack.ProvidePlugin({
             process: "process/browser",
         }),
-        ...HtmlWebpackPlugins,
     ],
 };
