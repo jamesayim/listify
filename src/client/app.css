@@ -16,7 +16,7 @@ html {
     background-color: var(--white-color);
     grid-template-columns: 350px auto;
     grid-template-rows: max-content auto;
-    height: clamp(max-content, 100dvh, auto);
+    height: clamp(max-content, 100dvh, max-content);
     border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
@@ -244,6 +244,10 @@ html {
     border-radius: 10px;
 }
 
+#app-content {
+    display: grid;
+}
+
 #app-content .taskname {
     border: 1px solid rgba(0, 0, 0, 0.25);
     border-radius: 10px;
@@ -251,5 +255,15 @@ html {
     font-size: 1.5rem;
     font-weight: 300;
     padding: 20px;
+    grid-area: 1 / 1 / 2 / 3;
 }
 
+#app-content .task-content {
+    border: 1px solid rgba(255, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
