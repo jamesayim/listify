@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listify - Dashboard</title>
+</head>
+<body data-page="app">
+    <div id="app">
+        <header class="app-header">
+            <div class="dashboard-line">
+                <h2>Dashboard</h2>
+                <div class="menu-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M2 11H22V13H2zM2 5H22V7H2zM2 17H22V19H2z"></path>
+                        </svg>
+                </div>
+            </div>
+            <input type="text" id="search-todo" placeholder="Search tasks">
+        </header>
+        <div class="sidebar">
+            <section id="task-section">
+                <h2>Tasks</h2>
+                <div class="task">
+                    <div class="upcoming">
+                        <img width="24" height="24" src="https://img.icons8.com/plumpy/24/double-right.png" alt="double-right"/>
+                        <h3>Upcoming</h3>
+                    </div>
+                    <div class="today">
+                        <img width="24" height="24" src="https://img.icons8.com/plumpy/24/today.png" alt="today"/>
+                        <h3>Today</h3>
+                    </div>
+                    <div class="calendar">
+                        <img width="24" height="24" src="https://img.icons8.com/plumpy/24/calendar.png" alt="calendar"/>
+                        <h3>Calendar</h3>
+                    </div>
+                    <div class="stickywall">
+                        <img width="24" height="24" src="https://img.icons8.com/plumpy/24/note.png" alt="note"/>
+                        <h3>Sticky Wall</h3>
+                    </div>
+                </div>
+            </section>
+            <section id="lists-section">
+                <h2>Lists</h2>
+                <div class="lists">
+                    <button class="add-list-btn"><img width="20" height="20" src="https://img.icons8.com/plumpy/20/plus-math.png" alt="plus-math"> 
+                        Add List</button>
+                </div>
+            </section>
+            <section id="tags-section">
+                <h2>Tags</h2>
+                <div class="tags">
+                    <button class="add-task-btn"><img width="20" height="20" src="https://img.icons8.com/plumpy/20/plus-math.png" alt="plus-math"/> 
+                        Add Task</button>
+                </div>
+            </section>
+            <section id="departure">
+                <div class="settings">
+                    <img width="20" height="20" src="https://img.icons8.com/plumpy/20/settings.png" alt="settings"/>
+                    <h3>Settings</h3>
+                </div>
+                <div class="sign-out">
+                    <img width="20" height="20" src="https://img.icons8.com/plumpy/20/exit.png" alt="exit"/>
+                    <h3>Sign out</h3>
+                </div>
+            </section>
+        </div>
+        <main id="app-content">
+            <section class="taskname">
+                <h2>Today</h2>
+            </section>
+            <section class="task-content">
+            </section>
+        </main>
+    </div>
+</body>
+</html>

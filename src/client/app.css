@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family: var(--font-secondary);
+    color: var(--black-color);
+    background-color: var(--white-color);
+}
+
+#app {
+    display: grid;
+    background-color: var(--white-color);
+    grid-template-columns: 350px auto;
+    grid-template-rows: max-content auto;
+    height: clamp(max-content, 100dvh, auto);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.app-header {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: none;
+    width: 100%;
+    padding: 15px;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+}
+
+.sidebar {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    height: clamp(max-content, 100dvh, max-content);
+    border-bottom-right-radius: 10px;
+    padding: 15px 0;
+    border-top: none;
+}
+
+.app-content {
+    grid-area: 1 / 2 / 3 / 3;
+    height: 100dvh;
+    width: clamp(min-content, 100vw, max-content);
+    padding: 20px;
+    overflow-x: auto;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.dashboard-line {
+    display: flex;
+    flex-direction: row;
+    gap: 50%;
+    text-align: center;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.dashboard-line .menu-svg svg {
+    fill: var(--gray-color);
+    transition: fill 0.3s ease;
+}
+
+.dashboard-line .menu-svg {
+    height: 30px;
+    margin-bottom: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 90px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    transform: scale(.8);
+    transition: background-color 0.3s ease;
+}
+
+.menu-svg:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+}
+
+.menu-svg svg:hover {
+    fill: rgb(255, 255, 255);
+}
+
+.dashboard-line > h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-style: italic;
+    font-family: var(--font-secondary);
+    color: var(--gray-color);
+    font-optical-sizing: auto;
+}
+
+.app-header input {
+    width: 70%;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 13px;
+    margin: 10px;
+    font-family: var(--font-primary);
+    position: relative;
+    left: 10%;
+}
+
+.app-header input:focus {
+    outline: none;
+    border: 1px solid var(--primary-blue);
+}
+
+#task-section > h2 {
+    margin-left: 20px;
+}
+
+.task .upcoming, .task .today, .task .stickywall, .task .calendar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.task .upcoming:hover, .task .today:hover, .task .stickywall:hover, .task .calendar:hover {
+    background-color: hsl(0, 0%, 50%);
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    color: rgb(255, 255, 255);
+}
+
+#lists-section .lists, #tags-section .tags, #departure {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px;
+    /* border: 1px solid rgba(0, 0, 0, 0.25); */
+    border-radius: 10px;
+}
+
+#task-section, #lists-section, #tags-section, #departure {
+    transform: scale(.80);
+}
+
+.sign-out > img, .settings > img {
+    text-align: center;
+    margin-top: 3px;
+}
+
+/* Task section, Lists section, Tags section */
+#task-section, #lists-section, #tags-section {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    position: relative;
+    bottom: 4%;
+    right: 2%;
+    padding: 15px;
+}
+
+#lists-section {
+    position: relative;
+    bottom: 10%;
+    border-top: none;
+}
+#tags-section {
+    position: relative;
+    top: -10%;    
+}
+ 
+#lists-section > h2 {
+    margin-left: 20px;
+}
+
+#tags-section > h2 {
+    margin-left: 20px;
+}
+
+#lists-section .lists {
+    display: flex;
+    flex-direction: column;
+    height: clamp(max-content, 400px, max-content);
+}
+
+#lists-section .lists > button.add-list-btn {
+    width: max-content;
+    height: 40px;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+#tags-section .tags > button.add-task-btn {
+    width: max-content;
+    min-height: 40px;
+    font-family: var(--font-primary);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+#lists-section button:hover, #tags-section button {
+    cursor: pointer;
+}
+
+#departure {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: rgb(255, 255, 255);
+}
+
+#departure .settings, #departure .sign-out {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 5px;
+}
+
+#departure .settings:hover, #departure .sign-out:hover {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+#app-content .taskname {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 20px;
+}
+

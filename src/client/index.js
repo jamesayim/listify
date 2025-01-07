@@ -30,4 +30,7 @@ if (pageEntry.page === "home") {
     import ("./signup.css");
 } else if (pageEntry.page === "faq" || pageEntry.page === "about") {
     pageEntry.addEventListeners();
+} else if (pageEntry.page === "app") {
+    import ("./app.css");
+    import ("./app.js");
 }

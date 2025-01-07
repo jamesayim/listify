@@ -50,7 +50,7 @@ body {
     background-color: var(--light-gray);
 }
 
-header {
+.hp-header {
     color: var(--white-color);
     padding: 1rem;
     text-align: center;

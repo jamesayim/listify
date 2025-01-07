@@ -27,8 +27,6 @@ router.post('/signup', async (req, res) => {
         'SELECT * FROM users WHERE username = ? OR email = ?',
         [username, email]
       );
-
-      console.log(results);
       
       if (results.length > 0) {
         return res.status(400).json({ error: 'Username or email already exists' });
