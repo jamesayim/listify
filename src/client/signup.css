@@ -79,3 +79,23 @@
     text-align: center;
     color: var(--gray-color);
 }
+
+/* Mobile View */
+@media (max-width: 600px) {
+    .signup-container {
+        width: 90%; /* Full width with some padding */
+        margin: 10vh auto; /* Adjust top margin for better alignment */
+        padding: 20px; /* Slightly reduce padding */
+    }
+    
+    .signup-container button {
+        width: 100%; /* Buttons span the full width */
+    }
+}
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 992px) {
+    .signup-container {
+        width: 70%; /* Adjust to fit tablet screen size */
+    }
+}

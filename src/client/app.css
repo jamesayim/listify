@@ -267,3 +267,95 @@ html {
     grid-column-start: 1;
     grid-column-end: 3;
 }
+
+/* Mobile View */
+@media (max-width: 600px) {
+    #app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;  /* Ensure the app fits within the viewport height */
+        border: none;
+    }
+
+    .app-header {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 25%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        order: 3; /* Move sidebar below content */
+    }
+    .sidebar .task h3 {
+        display: none;
+    }
+
+    .app-content {
+        width: 100%;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .dashboard-line {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .app-header input {
+        width: 35%;
+        margin-left: -10px;
+    }
+
+    .task, .lists-section, .tags-section, .departure {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .task .upcoming, .task .today, .task .stickywall, .task .calendar {
+        flex-direction: column;
+    }
+
+    #app-content {
+        display: block;  /* Ensure it is displayed correctly */
+        width: 100%;  /* Ensure it fits the screen */
+    }
+}
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 992px) {
+    #app {
+        display: grid;
+        grid-template-columns: 250px auto;
+    }
+
+    .app-header {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .app-content {
+        padding: 15px;
+    }
+
+    .dashboard-line {
+        gap: 20%;
+    }
+
+    .app-header input {
+        width: 60%;
+    }
+
+    .task, .lists-section, .tags-section, .departure {
+        width: 100%;
+        padding: 15px;
+    }
+}

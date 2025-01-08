@@ -1,6 +1,6 @@
 .login-container {
     border: 1px solid rgba(0, 0, 0, 0.3);
-    margin: 22vh auto;
+    margin: 10vh auto;
     width: 400px;
     padding: 30px;
     height: max-content;
@@ -11,6 +11,32 @@
     gap: 20px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Reduce width and padding for smaller screens */
+@media screen and (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Full width with some padding on smaller devices */
+        padding: 20px;
+    }
+}
+
+/* Adjust margin for very small screens */
+@media screen and (max-width: 480px) {
+    .login-container {
+        margin: 5vh auto;
+        gap: 15px;
+    }
+
+    .form-group input {
+        padding: 8px; /* Slightly smaller inputs */
+    }
+
+    .login-container button {
+        width: 100%; /* Full-width buttons for ease of use */
+    }
+}
+
+
 
 .form-group > p:first-child {
     text-align: center;
