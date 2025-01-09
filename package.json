@@ -9,7 +9,8 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "postbuild": "prettier --write dist/*",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "James Ayim",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "json-loader": "^0.5.7",
