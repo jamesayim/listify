@@ -5,9 +5,13 @@ const jwt = require("jsonwebtoken");
 const db = require("../../db/connection");
 require("dotenv").config();
 const validator = require('validator');
+const { registerUser, loginUser } = require("../controllers/authController");
 
 // Secret key for JWT 
 const JWT_SECRET = process.env.JWT_SECRET;
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 // Signup route
 router.post('/signup', async (req, res) => {

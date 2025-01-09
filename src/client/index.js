@@ -31,16 +31,20 @@ class HandlePageEntry {
 const pageEntry = new HandlePageEntry();
 
 if (pageEntry.page === "home") {
-    if (pageEntry.loginBtn || pageEntry.signupBtn || pageEntry.trynowBtn || pageEntry.learnmoreBtn) {
+    if (pageEntry.loginBtn || pageEntry.signupBtn || pageEntry.trynowBtn) {
         pageEntry.addEventListeners();
+    } else if (pageEntry.learnmoreBtn) {
+        pageEntry.trynowBtn.addEventListener("click", pageEntry.sendToSignupPageFromTrynow.bind(pageEntry));
     }
 } else if (pageEntry.page === "login") {
     import ("./login.css");
 } else if (pageEntry.page === "signup") {
     import ("./signup.css");
 } else if (pageEntry.page === "faq" || pageEntry.page === "about") {
-    pageEntry.addEventListeners();
+    pageEntry.loginBtn.addEventListener("click", pageEntry.sendToLoginPage.bind(pageEntry));
+    pageEntry.signupBtn.addEventListener("click", pageEntry.sendToSignupPage.bind(pageEntry));
 } else if (pageEntry.page === "app") {
     import ("./app.css");
     import ("./app.js");
 }
+

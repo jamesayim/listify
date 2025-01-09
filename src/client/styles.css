@@ -336,7 +336,7 @@ body {
     display: flex;
     justify-content: center;
     background-color: var(--bg-color-2);
-    padding: 20px;
+    padding: 30px;
 }
 
 .footer-content {
@@ -390,15 +390,15 @@ body {
 }
 
 .aboutus-main {
-    margin-top: 200px;
-    height: 50dvh;
+    margin-top: 150px;
+    height: auto;
     text-align: center;
     background-color: var(--off-white);
-    padding: 10px;
+    padding: 25px;
 }
 
 .allabout {
-    width: 80%;
+    width: 100%;
     gap: 25px;
     display: flex;
     flex-direction: column;
@@ -489,24 +489,25 @@ body {
 
     .hero h1 {
         font-size: 2rem;
-        padding-left: 3rem;
+        margin-left: 20%;
         text-align: center;
         width: 90%;
         margin-top: 1rem;
     }
 
     .hero h2 {
-        width: 100%;
+        width: 89%;
         font-size: .93em;
         text-align: center;
-        margin: 0 auto;
+        margin: 0 0 0 13%;
         padding: 5px 10px;
     }
 
     .screenshots {
-        max-width: 90%;
+        max-width: 80%;
+        position: relative;
         bottom: 60%;
-        left: 5%;
+        left: 14% !important;
         top: -30px;
     }
 
@@ -566,6 +567,51 @@ body {
 
     .screenshots img:last-child {
         top: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+    .nav-list {
+        transform: scale(.8);
+        position: relative;
+        left: 25dvw !important;
+    }
+    .logo {
+        position: relative;
+        top: -4px !important;
+    }
+}
+
+@media (max-width: 320px) {
+    .nav-list {
+        transform: scale(.8);
+        position: relative;
+        top: -20px;
+    }
+    .logo {
+        font-size: 1.5rem;
+        position: relative;
+        top: -50px;
+    }
+}
+
+@media (max-width: 375px) {
+    .nav-list {
+        transform: scale(.8);
+        position: relative;
+        left: 7dvw !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        position: relative;
+        top: -46px;
+    }
+    .nav-list {
+        position: relative;
+        top: -10px;
+        left: 50dvw;
     }
 }
 

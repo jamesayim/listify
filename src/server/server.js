@@ -5,6 +5,10 @@ const cors = require("cors");
 const path = require("path");
 const app = express();
 const PORT = 3000;
+const dotenv = require("dotenv");
+
+
+dotenv.config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,6 +19,9 @@ app.use(express.static(path.join(__dirname, "../../dist")));
 
 // Routes - Signup and Login
 app.use("/auth", authRoutes);
+
+app.use("/api/auth", authRoutes)
+app.use("/api/todos", todoRoutes)
 
 app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
 
