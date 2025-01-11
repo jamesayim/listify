@@ -187,7 +187,7 @@ body {
     height: 100px;
     justify-content: center;
     align-items: center;
-    margin-left: 5rem;
+    margin-left: 20rem;
     margin-top: 1rem;
     gap: 10px;
 }
@@ -405,24 +405,41 @@ body {
     margin: 20px auto;
 }
 
+#hamburger-svg {
+    display: none;
+}
 
 /* Adjusting for mobile screen */
-@media (max-width: 768px) {
 
-    .hamburger-svg {
+@media (max-width: 768px) { 
+
+    .hamburger-menu {
         display: flex;
+        flex-direction: row;
+        position: absolute;
+        right: 0;
+        top: 35px;
+        left: 38vw;
+    }
+
+    #hamburger-svg {
+        display: flex;
+        transition: margin-left 0.3s ease;
         border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 5px;
-        justify-content: flex-end;
+        width: 30px;
+        height: 30px;
         align-items: center;
+        justify-content: center;
     }
 
-    .hamburger-menu:hover {
-        cursor: pointer;
-        fill: #212529;
+    #hamburger-svg:hover {
+        background-color: var(--primary-blue);
+        fill: rgb(255, 255, 255);
+        border: none;
     }
 
-    .hamburger-svg svg {
+    #hamburger-svg svg {
         padding: 5px;
     }
 
@@ -442,6 +459,7 @@ body {
     .nav-list {
         margin: 0;
         gap: 10px;
+        display: none;
         flex-direction: column;
         justify-content: center;
         background-color: var(--light-gray);
@@ -565,6 +583,7 @@ body {
     .screenshots img:last-child {
         top: 20px;
     }
+
 }
 
 /* Small Mobile */
@@ -584,6 +603,13 @@ body {
         left: 25vw !important;
         top: -4px !important;
     }
+    .hamburger-menu {
+        position: absolute;
+        gap: 85px;
+        top: 35px;
+        right: 0;
+        left: -5vw;
+    }
 }
 
 /* Laptop and other sizes */
@@ -599,5 +625,9 @@ body {
 
     .hero h1 {
         font-size: 2.5rem;
+    }
+
+    .cta-buttons {
+        margin-left: 13rem;
     }
 }
