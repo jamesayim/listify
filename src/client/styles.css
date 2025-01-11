@@ -402,30 +402,28 @@ body {
     gap: 25px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
-.hamburger-svg {
-    display: none;
-}
 
 /* Adjusting for mobile screen */
 @media (max-width: 768px) {
 
     .hamburger-svg {
-        border: 1px solid;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 5px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .hamburger-menu:hover {
+        cursor: pointer;
+        fill: #212529;
     }
 
     .hamburger-svg svg {
         padding: 5px;
-    }
-
-    .hamburger-menu {
-        display: none;
     }
 
     .hp-header {
@@ -433,15 +431,12 @@ body {
         display: grid;
         grid-template-columns: max-content auto;
         grid-template-rows: auto;
-        top: 0;
         width: 100%;
         box-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.1);
     }
 
     .logo {
-        position: relative;
-        bottom: 5%;
-        left: -10px;
+        align-items: center;
     }
 
     .nav-list {
@@ -482,32 +477,33 @@ body {
     }
 
     .hero {
-        margin-top: 8rem;
+        margin-top: 8rem !important;
         width: 100%;
         height: auto;
     }
 
     .hero h1 {
-        font-size: 2rem;
-        margin-left: 20%;
-        text-align: center;
+        font-size: 3rem;
         width: 90%;
-        margin-top: 1rem;
+        margin: 10% auto;
+        padding: 0;
+        margin-bottom: 0;
+        text-align: center;
     }
 
     .hero h2 {
-        width: 89%;
-        font-size: .93em;
+        width: 70%;
+        font-size: .9em;
+        margin: 0 auto;
+        padding: 0 10px;
         text-align: center;
-        margin: 0 0 0 13%;
-        padding: 5px 10px;
     }
 
     .screenshots {
         max-width: 80%;
         position: relative;
         bottom: 60%;
-        left: 14% !important;
+        left: 10% !important;
         top: -30px;
     }
 
@@ -527,7 +523,7 @@ body {
     }
 
     .cta-buttons button {
-        width: 100%; 
+        width: 100%;
     }
 
     .features-section {
@@ -560,6 +556,7 @@ body {
     }
 }
 
+/* Large Mobile */
 @media (max-width: 480px) {
     .screenshots {
         bottom: 30%; 
@@ -570,82 +567,37 @@ body {
     }
 }
 
-@media (max-width: 425px) {
-    .nav-list {
-        transform: scale(.8);
-        position: relative;
-        left: 25dvw !important;
-    }
-    .logo {
-        position: relative;
-        top: -4px !important;
-    }
-}
-
+/* Small Mobile */
 @media (max-width: 320px) {
     .nav-list {
         transform: scale(.8);
         position: relative;
         top: -20px;
     }
-    .logo {
-        font-size: 1.5rem;
-        position: relative;
-        top: -50px;
-    }
 }
 
-@media (max-width: 375px) {
+/* Small Mobile and Medium */
+@media (max-width: 375px) and (max-width: 425px) {
     .nav-list {
         transform: scale(.8);
         position: relative;
-        left: 7dvw !important;
+        left: 25vw !important;
+        top: -4px !important;
     }
 }
 
-@media (max-width: 768px) {
-    .logo {
-        position: relative;
-        top: -46px;
-    }
-    .nav-list {
-        position: relative;
-        top: -10px;
-        left: 50dvw;
-    }
-}
-
-@media (max-width: 1024px) {
+/* Laptop and other sizes */
+@media (min-width: 1000px) and (width: 1024px) {
     .screenshots {
-        position: relative;
-        top: -95%;
-        left: 45%;
+        top: -80%;
+        left: 50%; 
     }
 
-    .hero {
-        padding: 20px;
-        width: 100%;
-        margin-top: 6rem;
+    .screenshots img:last-child {
+        top: 20px;
     }
 
     .hero h1 {
-        font-size: 2.2rem;
-        width: 430px;
-        text-align: left;
-        position: relative;
-        top: -40px;
-    }
-
-    .hero h2 {
-        font-size: 1em;
-        text-align: left;
-        position: relative;
-        top: -50px;
-    }
-
-    .cta-buttons {
-        position: relative;
-        top: -30px;
-        left: 20px;
+        font-size: 2.5rem;
     }
 }
