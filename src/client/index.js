@@ -8,7 +8,7 @@ class HandlePageEntry {
         this.trynowBtn = document.getElementById("try-for-free-btn");
         this.learnmoreBtn = document.getElementById("learn-more-btn");
         this.hamburgerSvgBtn = document.getElementById("hamburger-svg");
-        this.hamburgerMenuElement = document.getElementById("navlist");
+        this.hamburgerMenuElement = document.querySelector("#navlist");
     }
     sendToLoginPage() {
         window.location.href = "./login.html";
@@ -23,12 +23,11 @@ class HandlePageEntry {
         window.location.href = "./about.html";
     }
     toggleHamburgerMenu() {
-        const menu = this.hamburgerMenuElement;
-        if (menu.style.display === "none" || menu.style.display === "") {
-            menu.style.display = "flex";
+        if (this.hamburgerMenuElement.style.display === "none") {
+            this.hamburgerMenuElement.style.display = "flex";
             this.hamburgerSvgBtn.style.marginLeft = "0";
         } else {
-            menu.style.display = "none";
+            this.hamburgerMenuElement.style.display = "none";
             this.hamburgerSvgBtn.style.marginLeft = "280px";
             if (window.innerWidth <= 375) {
                 this.hamburgerSvgBtn.style.marginLeft = "280px";
@@ -48,8 +47,10 @@ class HandlePageEntry {
             this.hamburgerSvgBtn.style.transition = "margin-left 0.3s ease";
         } else if (window.innerWidth >= 1024) {
                 this.hamburgerMenuElement.style = "flex";
-            } else {
+            } else if (this.hamburgerSvgBtn) {
                 this.hamburgerSvgBtn.style.marginLeft = "0";
+        } else if (!this.hamburgerSvgBtn || !this.hamburgerMenuElement) {
+            return;
         }
     }
     addEventListeners() {
@@ -66,6 +67,10 @@ const pageEntry = new HandlePageEntry();
 
 pageEntry.initializeHamburgerSvgBtn();
 
+if (pageEntry.page === "home" || pageEntry.page === "faq" || pageEntry.page === "about" || pageEntry.page === "tos" || pageEntry.page === "privacy-policy") {
+    pageEntry.toggleHamburgerMenu();
+}
+
 if (pageEntry.page === "home") {
     if (pageEntry.loginBtn || pageEntry.signupBtn || pageEntry.trynowBtn) {
         pageEntry.addEventListeners();
@@ -76,9 +81,10 @@ if (pageEntry.page === "home") {
     import ("./login.css");
 } else if (pageEntry.page === "signup") {
     import ("./signup.css");
-} else if (pageEntry.page === "faq" || pageEntry.page === "about") {
+} else if (pageEntry.page === "faq" || pageEntry.page === "about" || pageEntry.page === "tos" || pageEntry.page === "privacy-policy") {
     pageEntry.loginBtn.addEventListener("click", pageEntry.sendToLoginPage.bind(pageEntry));
     pageEntry.signupBtn.addEventListener("click", pageEntry.sendToSignupPage.bind(pageEntry));
+    pageEntry.hamburgerSvgBtn.addEventListener("click", () => pageEntry.toggleHamburgerMenu());
 } else if (pageEntry.page === "app") {
     import ("./app.css");
     import ("./app.js");
