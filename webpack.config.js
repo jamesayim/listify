@@ -19,6 +19,7 @@ module.exports = {
         landing: "./src/client/index.js",
         signup: "./src/client/signup.js",
         login: "./src/client/login.js",
+        app: "./src/client/app.js",
     },
     output: {
         filename: '[name].bundle.js',
