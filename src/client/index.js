@@ -39,13 +39,21 @@ class HandlePageEntry {
             }
         }
     }
+    displayNavList() {
+        if (window.innerWidth >= 1024) {
+            this.hamburgerMenuElement.style.display = "flex";
+        } else {
+            this.hamburgerMenuElement.style.display = "none";
+            this.hamburgerSvgBtn.style.marginLeft = "0";
+        }
+    }
     initializeHamburgerSvgBtn() {
         if (window.innerWidth <= 425 && this.hamburgerSvgBtn) {
             const maxMargin = window.innerWidth - this.hamburgerSvgBtn.offsetWidth;
             const marginLeft = Math.min(200, maxMargin);
             this.hamburgerSvgBtn.style.marginLeft = `${marginLeft}px`;
             this.hamburgerSvgBtn.style.transition = "margin-left 0.3s ease";
-        } else if (window.innerWidth >= 1024) {
+        } else if (window.innerWidth >= 1024 || this.hamburgerMenuElement) {
                 this.hamburgerMenuElement.style = "flex";
             } else if (this.hamburgerSvgBtn) {
                 this.hamburgerSvgBtn.style.marginLeft = "0";
@@ -65,7 +73,9 @@ class HandlePageEntry {
 
 const pageEntry = new HandlePageEntry();
 
-pageEntry.initializeHamburgerSvgBtn();
+if (pageEntry.page === "home" || pageEntry.page === "faq" || pageEntry.page === "about" || pageEntry.page === "tos" || pageEntry.page === "privacy-policy") {
+    pageEntry.initializeHamburgerSvgBtn();
+}
 
 if (pageEntry.page === "home" || pageEntry.page === "faq" || pageEntry.page === "about" || pageEntry.page === "tos" || pageEntry.page === "privacy-policy") {
     pageEntry.toggleHamburgerMenu();
@@ -74,6 +84,7 @@ if (pageEntry.page === "home" || pageEntry.page === "faq" || pageEntry.page === 
 if (pageEntry.page === "home") {
     if (pageEntry.loginBtn || pageEntry.signupBtn || pageEntry.trynowBtn) {
         pageEntry.addEventListeners();
+        pageEntry.displayNavList();
     } else if (pageEntry.learnmoreBtn) {
         pageEntry.trynowBtn.addEventListener("click", pageEntry.sendToSignupPageFromTrynow.bind(pageEntry));
     }
@@ -85,6 +96,7 @@ if (pageEntry.page === "home") {
     pageEntry.loginBtn.addEventListener("click", pageEntry.sendToLoginPage.bind(pageEntry));
     pageEntry.signupBtn.addEventListener("click", pageEntry.sendToSignupPage.bind(pageEntry));
     pageEntry.hamburgerSvgBtn.addEventListener("click", () => pageEntry.toggleHamburgerMenu());
+    pageEntry.displayNavList();
 } else if (pageEntry.page === "app") {
     import ("./app.css");
     import ("./app.js");

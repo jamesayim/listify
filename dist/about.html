@@ -8,8 +8,17 @@
         .aboutus-main {
             padding: 10px;
         }
+        .about-us, .our-story {
+            text-align: left;
+        }
         .footer-content {
             padding: 35px 0 !important;
+        }
+        @media (max-width: 320px) {
+            .footer-content {
+                font-size: 1rem;
+            padding: 15px 30px !important;
+            }
         }
     </style>
 </head>
@@ -17,7 +26,7 @@
     <header class="hp-header">
         <h1 class="logo">listify</h1>
         <div class="hamburger-menu">
-            <nav class="nav-list">
+            <nav id="navlist" class="nav-list">
                 <ul>
                     <li><a href="template.html">Home</a></li>
                     <li><a href="faq.html">FAQ</a></li>
@@ -67,5 +76,5 @@
             </div>
         </div>
     </footer>
-<script defer="defer" src="landing.bundle.js"></script><script defer="defer" src="signup.bundle.js"></script><script defer="defer" src="login.bundle.js"></script></body>
+<script defer="defer" src="landing.bundle.js"></script><script defer="defer" src="signup.bundle.js"></script><script defer="defer" src="login.bundle.js"></script><script defer="defer" src="app.bundle.js"></script></body>
 </html>
