@@ -66,14 +66,15 @@ html {
     border: 1px solid rgba(0, 0, 0, 0.25);
     padding: 5px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     transform: scale(1.5);
 }
 
 .dashboard-line svg:hover {
-    background-color: rgb(0, 0, 0);
+    background-color: var(--primary-blue);
     cursor: pointer;
     fill: rgb(255, 255, 255);
+    border: none;
 }
 
 .dashboard-line > h2 {
@@ -117,8 +118,13 @@ html {
 .task .upcoming:hover, .task .today:hover, .task .stickywall:hover, .task .calendar:hover {
     border: 0.5px solid rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    outline: none;
-    transition: border 0.5s ease-in-out;
+    transition: border 0.3s ease-in-out;
+}
+
+.task .upcoming:active, .task .today:active, .task .stickywall:active, .task .calendar:active {
+    background-color: var(--primary-blue);
+    border: none;
+    color: white;
 }
 
 #lists-section .lists, #tags-section .tags, #departure {
@@ -257,39 +263,75 @@ html {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     border-left: transparent;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 35px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-rows: 200px;
+    grid-gap: 10px;
+    padding: 30px;
+    overflow-wrap: normal;
+    overflow: auto;
 }
 
-.task-item {
+.task-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex: 1 0 calc((33.33% - 20px) / 3);
-    margin: 5px;
-    /* width: calc((100% - 20px) / 3); */
+    height: 200px;
+    overflow: hidden;
+    gap: 20px;
     padding: 10px;
     line-height: 1;
-    gap: 10px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.05);
-    height: 100px;
     border: 1px solid rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    transition: all 0.3s ease;
 }
-.task-item button {
-    width: max-content;
+
+.task-container:hover {
+    transform: scale(1.05);
+}
+
+.task-container button {
+    width: 75px;
     height: 35px;
     padding: 5px;
-    text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
     background-color: white;
     border-radius: 10px;
 }
-.task-item button:hover {
+.task-container button:hover {
     background-color: var(--primary-blue);
     color: white;
     transition: all 0.3s ease;
+    cursor: pointer;
+}
+.task-container button:last-child:hover {
+    background-color: rgb(255, 40, 40);
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+    margin: 0 auto;
+    width: max-content;
+}
+
+.task-info {
+    text-align: left;
+    height: max-content;
+}
+
+.timestamp {
+    display: inline-block;
+    font-size: .9em;
+    margin-top: 15px;
+}
+
+.task-description {
+    font-size: .9em;
+    margin-top: 15px;
 }
 
 .active {
@@ -298,3 +340,26 @@ html {
     transition: all 0.5s ease-in-out;
 }
 
+.list-item {
+    display: flex;
+    gap: 10px;
+}
+.list-item button {
+    border-radius: 5px;
+    background-color: var(--primary-blue);
+    padding: 7px;
+    color: white;
+    border: none;
+}
+
+.task-info h3::before {
+    content: "Title: ";
+}
+.task-info p::before {
+    content: "Description: ";
+    font-weight: 700;
+}
+.task-info span::before {
+    content: "Date: ";
+    font-weight: 700;
+}
