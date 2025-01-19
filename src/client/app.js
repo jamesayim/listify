@@ -88,6 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = searchInput.value.toLowerCase();
         const filteredTasks = tasks.today.filter(task => task.toLowerCase().includes(query));
         taskContent.innerHTML = "";
+        if (filteredTasks.length === 0) {
+            taskContent.innerHTML = "<p>No tasks match your search.</p>";
+            return;
+        };
 
         filteredTasks.forEach(task => {
             const taskElement = document.createElement("div");
@@ -98,7 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Event Listeners for task sections
-    document.querySelector(".upcoming").addEventListener("click", () => renderTasks("upcoming"));
+    if (document.querySelector(".upcoming")) {
+        document.querySelector(".upcoming").addEventListener("click", () => renderTasks("upcoming"));
+    }
     document.querySelector(".today").addEventListener("click", () => renderTasks("today"));
     document.querySelector(".stickywall").addEventListener("click", () => renderTasks("stickyWall"));
 
