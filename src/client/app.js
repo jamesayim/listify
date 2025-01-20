@@ -5,20 +5,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskContent = document.querySelector(".task-content");
     const taskNameHeader = document.querySelector(".taskname h2");
 
-    // Data Storage
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || {
-        today: [],
-        stickyWall: [],
-    };
+    const apiUrl = "https://678e0d58a64c82aeb11eca8f.mockapi.io/";
 
-    let lists = JSON.parse(localStorage.getItem("lists")) || [];
+    const tasks = { today: [], stickyWall: [] };
+    const lists = [];
+
+    // Fetch all tasks
+    const fetchTasks = async (category = "today") => {
+        try {
+            const response = await fetch(`${apiUrl}tasks`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            tasks[category] = data.filter(task => task.category === category);
+            renderTasks(category);
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+        }
+    };    
+    
 
     // Render tasks based on category
-    const renderTasks = (category) => {
+    const renderTasks = (category = "today") => {
+
+        if (!category || typeof category !== "string") {
+            console.error("Invalid category passed to renderTasks:", category);
+            return;
+        }
+
         taskNameHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
         taskContent.innerHTML = "";
 
-        tasks[category].forEach((task, index) => {
+        tasks[category].forEach((task, category) => {
             const taskContainer = document.createElement("div");
             taskContainer.classList.add("task-container");
 
@@ -50,17 +67,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const completeBtn = document.createElement("button");
             completeBtn.textContent = task.completed ? "Undo" : "Complete";
-            completeBtn.addEventListener("click", () => toggleComplete(category, index));
+            completeBtn.addEventListener("click", () => toggleComplete(task.id, category));
             taskActions.appendChild(completeBtn);
 
             const editBtn = document.createElement("button");
             editBtn.textContent = "Edit";
-            editBtn.addEventListener("click", () => editTask(category, index));
+            editBtn.addEventListener("click", () => editTask(task.id, category));
             taskActions.appendChild(editBtn);
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => deleteTask(category, index));
+            deleteBtn.addEventListener("click", () => deleteTask(task.id, category));
             taskActions.appendChild(deleteBtn);
 
             taskContainer.appendChild(taskActions);
@@ -68,52 +85,80 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Add new task
-    const addTask = (category) => {
+    const addTask = async (category) => {
         const taskTitle = prompt("Enter task title:");
         const taskDescription = prompt("Enter task description:");
         if (taskTitle) {
             const newTask = {
                 title: taskTitle,
-                description: taskDescription || "No description provided.",
+                description: taskDescription,
+                category: category,
                 timestamp: new Date().toLocaleString(),
-                completed: false,
+                completed: false
             };
-            tasks[category].push(newTask);
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-            renderTasks(category);
+    
+            await fetch(`${apiUrl}tasks`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newTask)
+            });
+    
+            fetchTasks(category);
         }
     };
+    
 
     // Toggle task completion
-    const toggleComplete = (category, index) => {
-        tasks[category][index].completed = !tasks[category][index].completed;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks(category);
-    };
+    const toggleComplete = async (taskId, category) => {
+        try {
+        const task = tasks[category].find(t => t.id === taskId);
+        if (!task) return;
+    
+        await fetch(`${apiUrl}tasks/${taskId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ completed: !task.completed })
+        });
+        fetchTasks(category);
+        } catch (error) {
+            console.error("Error toggling task completion:", error);
+        }
+    };    
 
     // Edit task
-    const editTask = (category, index) => {
-        const newTitle = prompt("Edit task title:", tasks[category][index].title);
-        const newDescription = prompt(
-            "Edit task description:",
-            tasks[category][index].description
-        );
-
-        if (newTitle) {
-            tasks[category][index].title = newTitle;
-            tasks[category][index].description = newDescription || "No description provided.";
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-            renderTasks(category);
-        }
+    const editTask = async (taskId, category) => {
+        const newTitle = prompt("Edit task title:");
+        const newDescription = prompt("Edit task description:");
+        if (newTitle || newDescription) {
+            try {
+            await fetch(`${apiUrl}tasks/${taskId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title: newTitle, description: newDescription })
+            });
+                fetchTasks(category);
+            } catch (error) {
+                console.error("Error editing task:", error);
+            }
+        };
     };
-
+    
     // Delete task
-    const deleteTask = (category, index) => {
-        tasks[category].splice(index, 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks(category);
+    const deleteTask = async (taskId, category) => {
+        try {
+            await fetch(`${apiUrl}tasks/${taskId}`, { method: "DELETE" });
+                fetchTasks(category);
+            } catch (error) {
+                console.error("Error deleting task:", error);
+            }
     };
+    
 
     // Add a new list
     const addList = () => {
@@ -154,18 +199,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Search functionality
     if (searchInput) searchInput.addEventListener("input", () => {
         const query = searchInput.value.toLowerCase();
+
         const filteredTasks = tasks.today.filter((task) =>
             task.title.toLowerCase().includes(query)
         );
 
         taskContent.innerHTML = "";
 
+        if (!tasks.today) {
+            taskContent.innerHTML = "<p>Tasks are loading. Please wait...</p>";
+            return;
+        }
+
         if (filteredTasks.length === 0) {
             taskContent.innerHTML = "<p>No tasks match your search.</p>";
             return;
         }
 
-        filteredTasks.forEach((task, index) => {
+        filteredTasks.forEach((task, category) => {
             const taskContainer = document.createElement("div");
             taskContainer.classList.add("task-container");
     
@@ -196,28 +247,24 @@ document.addEventListener("DOMContentLoaded", () => {
     
             const completeBtn = document.createElement("button");
             completeBtn.textContent = task.completed ? "Undo" : "Complete";
-            completeBtn.addEventListener("click", () => toggleComplete("today", index));
+            completeBtn.addEventListener("click", () => toggleComplete(task.id, category));
             taskActions.appendChild(completeBtn);
     
             const editBtn = document.createElement("button");
             editBtn.textContent = "Edit";
-            editBtn.addEventListener("click", () => editTask("today", index));
+            editBtn.addEventListener("click", () => editTask(task.id, category));
             taskActions.appendChild(editBtn);
     
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => deleteTask("today", index));
+            deleteBtn.addEventListener("click", () => deleteTask(task.id, category));
             taskActions.appendChild(deleteBtn);
     
             taskContainer.appendChild(taskActions);
             taskContent.appendChild(taskContainer);
         });
         const searchingNameDisplay = () => {
-            if (searchInput.value) {
-                taskNameHeader.textContent = "searching...";
-            } else {
-                taskNameHeader.textContent = "today".charAt(0).toUpperCase() + "today".slice(1);
-            };
+            taskNameHeader.textContent = query ? "Search Results" : "Today";
         };
         searchingNameDisplay();
     });
@@ -225,10 +272,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial renders
     if (document.body.dataset.page === "app") {
         // Event Listeners for task sections
-        document.querySelector(".today").addEventListener("click", () => renderTasks("today"));
-        document.querySelector(".stickywall").addEventListener("click", () => renderTasks("stickyWall"));
+        document.querySelector(".today").addEventListener("click", () => fetchTasks("today"));
+        document.querySelector(".stickywall").addEventListener("click", () => fetchTasks("stickyWall"));
 
-        renderTasks("today");
+        fetchTasks("today");
         renderLists();
 
         // Add Listeners for Add buttons
