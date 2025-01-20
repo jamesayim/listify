@@ -409,6 +409,9 @@ body {
     display: none;
 }
 
+#login-btn {
+    display: none;
+}
 
 /* Adjusting for mobile screen */
 

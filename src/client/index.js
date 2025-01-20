@@ -16,11 +16,14 @@ class HandlePageEntry {
     sendToSignupPage() {
         window.location.href = "./signup.html";
     }
-    sendToSignupPageFromTrynow() {
-        window.location.href = "./signup.html";
+    sendToAppPageFromTrynow() {
+        window.location.href = "./app.html";
     }
     sendToAboutPage() {
         window.location.href = "./about.html";
+    }
+    sendToAppPage() {
+        window.location.href = "./app.html";
     }
     toggleHamburgerMenu() {
         if (this.hamburgerMenuElement.style.display === "none") {
@@ -62,9 +65,10 @@ class HandlePageEntry {
         }
     }
     addEventListeners() {
-        this.loginBtn.addEventListener("click", this.sendToLoginPage.bind(this));
-        this.signupBtn.addEventListener("click", this.sendToSignupPage.bind(this));
-        this.trynowBtn.addEventListener("click", this.sendToSignupPageFromTrynow.bind(this));
+        // this.loginBtn.addEventListener("click", this.sendToLoginPage.bind(this));
+        // this.signupBtn.addEventListener("click", this.sendToSignupPage.bind(this));
+        this.signupBtn.addEventListener("click", this.sendToAppPage.bind(this));
+        this.trynowBtn.addEventListener("click", this.sendToAppPageFromTrynow.bind(this));
         this.learnmoreBtn.addEventListener("click", this.sendToAboutPage.bind(this));
         this.hamburgerSvgBtn.addEventListener("click", this.toggleHamburgerMenu.bind(this));
         window.addEventListener("resize", this.initializeHamburgerSvgBtn.bind(this));
@@ -86,7 +90,7 @@ if (pageEntry.page === "home") {
         pageEntry.addEventListeners();
         pageEntry.displayNavList();
     } else if (pageEntry.learnmoreBtn) {
-        pageEntry.trynowBtn.addEventListener("click", pageEntry.sendToSignupPageFromTrynow.bind(pageEntry));
+        pageEntry.trynowBtn.addEventListener("click", pageEntry.sendToAppPageFromTrynow.bind(pageEntry));
     }
 } else if (pageEntry.page === "login") {
     import ("./login.css");

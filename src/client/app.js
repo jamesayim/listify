@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Search functionality
-    searchInput.addEventListener("input", () => {
+    if (searchInput) searchInput.addEventListener("input", () => {
         const query = searchInput.value.toLowerCase();
         const filteredTasks = tasks.today.filter((task) =>
             task.title.toLowerCase().includes(query)
@@ -222,12 +222,12 @@ document.addEventListener("DOMContentLoaded", () => {
         searchingNameDisplay();
     });
 
-    // Event Listeners for task sections
-    document.querySelector(".today").addEventListener("click", () => renderTasks("today"));
-    document.querySelector(".stickywall").addEventListener("click", () => renderTasks("stickyWall"));
-
     // Initial renders
     if (document.body.dataset.page === "app") {
+        // Event Listeners for task sections
+        document.querySelector(".today").addEventListener("click", () => renderTasks("today"));
+        document.querySelector(".stickywall").addEventListener("click", () => renderTasks("stickyWall"));
+
         renderTasks("today");
         renderLists();
 
