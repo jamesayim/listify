@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const htmlPages = [
     "template.html",
@@ -13,18 +14,20 @@ const htmlPages = [
     "privacy-policy.html",
 ];
 
-module.exports = {
-    mode: 'development',
+module.exports = (env, argv) => {
+    const isProduction = argv.mode === "production";
+    
+    return {
+    mode: isProduction ? "production" : "development",
     entry: {
         landing: "./src/client/index.js",
-        signup: "./src/client/signup.js",
-        login: "./src/client/login.js",
         app: "./src/client/app.js",
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: isProduction ? "[name].[contenthash].bundle.js" : "[name].bundle.js",
         path: path.resolve(__dirname, 'dist'),
         clean: true,
+        publicPath: "./",
     },
     module: {
         rules: [
@@ -34,7 +37,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [ isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader']
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -45,7 +48,7 @@ module.exports = {
             },
         ]
     },
-    devtool: "eval-source-map",
+    devtool: isProduction ? false : "inline-source-map",
     devServer: {
         watchFiles: [
             "./src/client/template.html",
@@ -79,8 +82,9 @@ module.exports = {
               },
             });
           }),
-        new webpack.ProvidePlugin({
-            process: "process/browser",
+        isProduction && new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css",
         }),
-    ],
+    ].filter(Boolean),
+}
 };
