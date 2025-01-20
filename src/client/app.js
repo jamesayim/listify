@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fetch all tasks
     const fetchTasks = async (category = "today") => {
+        
         try {
             const response = await fetch(`${apiUrl}tasks`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,13 +30,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!category || typeof category !== "string") {
             console.error("Invalid category passed to renderTasks:", category);
-            return;
+        }
+
+        if (!tasks[category]) {
+            console.warn(`No tasks for category: ${category}. Defaulting to 'today'.`);
+            category = "today";
         }
 
         taskNameHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
         taskContent.innerHTML = "";
 
-        tasks[category].forEach((task, category) => {
+        tasks[category].forEach((task) => {
             const taskContainer = document.createElement("div");
             taskContainer.classList.add("task-container");
 
@@ -137,9 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
             await fetch(`${apiUrl}tasks/${taskId}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ title: newTitle, description: newDescription })
             });
                 fetchTasks(category);
@@ -161,39 +164,70 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     // Add a new list
-    const addList = () => {
+    const addList = async () => {
         const listName = prompt("Enter the list name:");
         if (listName) {
-            lists.push(listName);
-            localStorage.setItem("lists", JSON.stringify(lists));
-            renderLists();
+            const newList = { name: listName };
+            
+            try {
+                const response = await fetch(`${apiUrl}lists`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newList)
+                });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    fetchLists();
+                } catch (error) {
+                    console.error("Error adding new list:", error);
+                }
+        }
+    };
+
+    // Fetch and render lists
+const fetchLists = async () => {
+    try {
+        const response = await fetch(`${apiUrl}lists`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const data = await response.json();
+        renderLists(data);
+        } catch (error) {
+            console.error("Error fetching lists:", error);
         }
     };
 
     // Render lists
-    const renderLists = () => {
-        const listsSection = document.querySelector(".lists");
-        listsSection.innerHTML = "<button class='add-list-btn'><img width='20' height='20' src='https://img.icons8.com/plumpy/20/plus-math.png' alt='plus-math'> Add List</button>";
+    const renderLists = (data = []) => {
+    const listsSection = document.querySelector(".lists");
+    listsSection.innerHTML = "<button class='add-list-btn'><img width='20' height='20' src='https://img.icons8.com/plumpy/20/plus-math.png' alt='plus-math'> Add List</button>";
 
-        lists.forEach((list, index) => {
-            const listElement = document.createElement("div");
-            listElement.classList.add("list-item");
-            listElement.textContent = list;
+    data.forEach(list => {
+        const listElement = document.createElement("div");
+        listElement.classList.add("list-item");
+        listElement.textContent = list.name;
 
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => {
-                lists.splice(index, 1);
-                localStorage.setItem("lists", JSON.stringify(lists));
-                renderLists();
-            });
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => deleteList(list.id));
 
-            listElement.appendChild(deleteBtn);
-            listsSection.appendChild(listElement);
-        });
+        listElement.appendChild(deleteBtn);
+        listsSection.appendChild(listElement);
+    });
 
         // Reattach add-list button listener
         document.querySelector(".add-list-btn").addEventListener("click", addList);
+    };
+
+    // Delete list
+    const deleteList = async (listId) => {
+        try {
+            await fetch(`${apiUrl}lists/${listId}`, { method: "DELETE" });
+            fetchLists();
+        } catch (error) {
+            console.error("Error deleting list:", error);
+        }
     };
 
     // Search functionality
@@ -213,10 +247,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (filteredTasks.length === 0) {
             taskContent.innerHTML = "<p>No tasks match your search.</p>";
+            taskNameHeader.textContent = "Search Results";
             return;
         }
 
-        filteredTasks.forEach((task, category) => {
+        filteredTasks.forEach((task) => {
             const taskContainer = document.createElement("div");
             taskContainer.classList.add("task-container");
     
@@ -247,17 +282,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
             const completeBtn = document.createElement("button");
             completeBtn.textContent = task.completed ? "Undo" : "Complete";
-            completeBtn.addEventListener("click", () => toggleComplete(task.id, category));
+            completeBtn.addEventListener("click", () => toggleComplete(task.id, "today"));
             taskActions.appendChild(completeBtn);
     
             const editBtn = document.createElement("button");
             editBtn.textContent = "Edit";
-            editBtn.addEventListener("click", () => editTask(task.id, category));
+            editBtn.addEventListener("click", () => editTask(task.id, "today"));
             taskActions.appendChild(editBtn);
     
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => deleteTask(task.id, category));
+            deleteBtn.addEventListener("click", () => deleteTask(task.id, "today"));
             taskActions.appendChild(deleteBtn);
     
             taskContainer.appendChild(taskActions);
@@ -276,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".stickywall").addEventListener("click", () => fetchTasks("stickyWall"));
 
         fetchTasks("today");
-        renderLists();
+        fetchLists();
 
         // Add Listeners for Add buttons
         addListBtn.addEventListener("click", addList);
