@@ -27,7 +27,7 @@ module.exports = (env, argv) => {
         filename: isProduction ? "[name].[contenthash].bundle.js" : "[name].bundle.js",
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        publicPath: isProduction ? "/listify/" : "./",
+        publicPath: "./",
     },
     module: {
         rules: [
