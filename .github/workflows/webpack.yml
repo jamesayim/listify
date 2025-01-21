@@ -28,7 +28,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          publish_dir: ./dist
+          folder: dist
         env:
           GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
