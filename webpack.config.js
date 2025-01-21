@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const htmlPages = [
-    "template.html",
+    "index.html",
     "about.html",
     "faq.html",
     "tos.html",
@@ -51,7 +51,7 @@ module.exports = (env, argv) => {
     devtool: isProduction ? false : "inline-source-map",
     devServer: {
         watchFiles: [
-            "./src/client/template.html",
+            "./src/client/index.html",
             "./src/client/faq.html",
             "./src/client/about.html",
             "./src/client/tos.html",
