@@ -1,0 +1,109 @@
+.login-container {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin: 10vh auto;
+    width: 400px;
+    padding: 30px;
+    height: max-content;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 20px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Reduce width and padding for smaller screens */
+@media screen and (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Full width with some padding on smaller devices */
+        padding: 20px;
+    }
+}
+
+/* Adjust margin for very small screens */
+@media screen and (max-width: 480px) {
+    .login-container {
+        margin: 5vh auto;
+        gap: 15px;
+    }
+
+    .form-group input {
+        padding: 8px; /* Slightly smaller inputs */
+    }
+
+    .login-container button {
+        width: 100%; /* Full-width buttons for ease of use */
+    }
+}
+
+
+
+.form-group > p:first-child {
+    text-align: center;
+    font-size: .8rem;
+    margin: 15px 0;
+    color: var(--gray-color);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border: 1px solid var(--primary-blue);
+}
+
+.login-container button {
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-blue);
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80px;
+    font-family: var(--primary-font);
+}
+
+.login-container button:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+.form-group a {
+    text-decoration: none;
+    color: var(--primary-blue);
+}
+
+.form-group a:hover {
+    text-decoration: underline;
+    color: var(--primary-blue-dark);
+}
+
+.form-group a:visited {
+    color: var(--primary-blue-dark);
+}
+
+.form-group a:active {
+    color: var(--primary-blue-dark);
+}
+
+.form-group p {
+    text-align: center;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: var(--gray-color);
+}
+
+
